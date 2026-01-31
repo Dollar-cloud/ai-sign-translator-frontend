@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Sign Language Translator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- ========== LANDING PAGE ========== -->
+  <section class="landing" id="landing">
+    <div class="landing-bg"></div>
+    <div class="landing-content">
+      <header class="landing-header">
+        <span class="landing-logo">AI Sign Translator</span>
+        <span class="landing-tagline">Breaking Communication Barriers</span>
+      </header>
+      <div class="landing-hero">
+        <h1 class="landing-title">Translate sign language in real time</h1>
+        <p class="landing-subtitle">Use your camera to detect hand signs and see instant text. Learn the alphabet and common phrases with interactive demos.</p>
+        <a href="#app-section" class="btn btn-landing" id="btn-get-started">Get Started</a>
+      </div>
+      <div class="landing-features">
+        <div class="landing-feature">
+          <span class="landing-feature-icon">📷</span>
+          <h3>Live camera</h3>
+          <p>Show your hands to the camera — we'll detect signs and show translated text.</p>
+        </div>
+        <div class="landing-feature">
+          <span class="landing-feature-icon">✋</span>
+          <h3>Sign learning</h3>
+          <p>Browse A–Z and common words. Each card opens a clear hand-sign demo.</p>
+        </div>
+        <div class="landing-feature">
+          <span class="landing-feature-icon">💬</span>
+          <h3>Conversation history</h3>
+          <p>All translations are listed with timestamps. Copy or speak them aloud.</p>
+        </div>
+      </div>
+      <div class="landing-cta">
+        <a href="#app-section" class="btn btn-primary btn-lg" id="btn-get-started-2">Try the translator</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== APP (Translator) ========== -->
+  <div id="app-section" class="app-section">
+    <header class="header">
+      <div class="header-content">
+        <h1 class="site-title">AI Sign Language Translator</h1>
+        <p class="site-subtitle">Breaking Communication Barriers</p>
+        <div class="header-controls">
+          <div class="language-selector">
+            <label for="lang-select">Mode</label>
+            <select id="lang-select" aria-label="Sign language mode">
+              <option value="ASL">ASL</option>
+              <option value="ISL">ISL</option>
+            </select>
+          </div>
+          <button type="button" class="btn btn-icon dark-mode-toggle" id="dark-mode-toggle" aria-label="Toggle dark mode">
+            <span class="icon-sun">☀</span>
+            <span class="icon-moon">🌙</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+      <section class="section camera-section" id="camera-section">
+        <h2 class="section-title">Live Translation</h2>
+        <div class="camera-wrapper">
+          <div class="video-container">
+            <video id="webcam" playsinline muted></video>
+            <canvas id="landmarks-canvas"></canvas>
+            <div class="camera-cta-overlay" id="camera-cta-overlay">
+              <span class="camera-cta-icon">📷</span>
+              <p class="camera-cta-text">Click below to start your camera</p>
+              <p class="camera-cta-hint">Your browser will ask for permission to use your camera</p>
+              <button type="button" class="btn btn-primary btn-lg" id="btn-start-camera-inline">Start Camera</button>
+            </div>
+            <p class="camera-status" id="camera-status">Ready — click Start Camera to begin</p>
+          </div>
+          <div class="translation-panel">
+            <label class="translation-label">Translated text</label>
+            <div class="translation-display" id="translation-display" aria-live="polite"></div>
+            <div class="translation-actions">
+              <button type="button" class="btn btn-primary" id="btn-start-detection">Start Detection</button>
+              <button type="button" class="btn btn-secondary" id="btn-pause" disabled>Pause</button>
+              <button type="button" class="btn btn-secondary" id="btn-clear">Clear Text</button>
+              <button type="button" class="btn btn-secondary" id="btn-copy">Copy Text</button>
+              <button type="button" class="btn btn-secondary" id="btn-tts" aria-label="Text to speech">🔊 TTS</button>
+              <button type="button" class="btn btn-secondary" id="btn-stop-tts" aria-label="Stop speaking">⏹ Stop speaking</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section history-section" id="history-section">
+        <h2 class="section-title">Conversation History</h2>
+        <div class="history-actions">
+          <button type="button" class="btn btn-secondary" id="btn-download-history" aria-label="Download or save history">💾 Download / Save history</button>
+        </div>
+        <div class="history-panel">
+          <div class="history-list" id="history-list"></div>
+        </div>
+      </section>
+
+      <!-- Sign Language Guide – ASL or ISL (alphabet, numbers, common words) -->
+      <section class="section sign-guide-card-section" id="sign-guide-card-section">
+        <h2 class="section-title" id="sign-guide-title">Sign Language Guide (ASL)</h2>
+        <p class="section-desc sign-guide-mode-desc" id="sign-guide-mode-desc">ASL mode. Click a letter, number, or word below to see the sign.</p>
+        <div class="sign-guide-options" id="sign-guide-options">
+          <label class="guide-option">
+            <input type="checkbox" id="show-english-letters" checked>
+            <span>Show English Letters</span>
+          </label>
+          <label class="guide-option">
+            <input type="checkbox" id="fixed-width-signs">
+            <span>Fixed Width Signs</span>
+          </label>
+          <label class="guide-option">
+            <span>Font Size:</span>
+            <select id="guide-font-size" aria-label="Font size">
+              <option value="80">80</option>
+              <option value="90">90</option>
+              <option value="100">100</option>
+              <option value="110" selected>110</option>
+              <option value="120">120</option>
+            </select>
+          </label>
+        </div>
+        <div class="sign-guide-card" id="sign-guide-card">
+          <div class="sign-guide-card-inner" id="sign-guide-card-inner">
+            <div class="sign-guide-placeholder" id="sign-guide-placeholder">
+              <span class="sign-guide-placeholder-icon">✋</span>
+              <p>Click any letter (A–Z), number (0–9), or common word below to see the sign here.</p>
+            </div>
+            <div class="sign-guide-demo" id="sign-guide-demo" hidden>
+              <div class="sign-guide-demo-label" id="sign-guide-demo-label"></div>
+              <div class="sign-guide-demo-viewer" id="sign-guide-demo-viewer"></div>
+              <p class="sign-guide-demo-desc" id="sign-guide-demo-desc"></p>
+            </div>
+          </div>
+        </div>
+        <div class="sign-cards" id="sign-cards">
+          <div class="sign-cards-group" data-mode="asl">
+            <h3 class="sign-group-title">Alphabet (A–Z)</h3>
+            <div class="sign-cards-row sign-cards-row-alphabet" id="alphabet-cards"></div>
+          </div>
+          <div class="sign-cards-group" data-mode="both">
+            <h3 class="sign-group-title">Numbers (0–9)</h3>
+            <div class="sign-cards-row sign-cards-row-numbers" id="numbers-cards"></div>
+          </div>
+          <div class="sign-cards-group" data-mode="both">
+            <h3 class="sign-group-title">Common Words</h3>
+            <div class="sign-cards-row sign-cards-row-words" id="words-cards"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section control-section" id="control-section">
+        <h2 class="section-title">Control Panel</h2>
+        <div class="control-panel">
+          <button type="button" class="btn btn-primary" id="btn-start-camera">Start Camera</button>
+          <button type="button" class="btn btn-secondary" id="btn-stop-camera" disabled>Stop Camera</button>
+          <button type="button" class="btn btn-secondary" id="btn-reset">Restart</button>
+          <label class="control-toggle">
+            <input type="checkbox" id="toggle-landmarks" checked>
+            <span>Show landmarks</span>
+          </label>
+          <label class="control-toggle">
+            <input type="checkbox" id="toggle-dark-mode">
+            <span>Dark mode</span>
+          </label>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- ========== SIGN DEMO MODAL (separate card / page-like view) ========== -->
+  <div class="modal-overlay" id="sign-modal" aria-hidden="true">
+    <div class="modal modal-sign-demo" role="dialog" aria-labelledby="modal-title" aria-modal="true">
+      <div class="modal-header">
+        <h2 class="modal-title" id="modal-title">Sign Demo</h2>
+        <button type="button" class="btn btn-icon modal-close" id="modal-close" aria-label="Close">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="sign-demo-label" id="sign-demo-label">E</div>
+        <div class="sign-demo-viewer" id="sign-demo-viewer"></div>
+        <p class="sign-description" id="sign-description"></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>

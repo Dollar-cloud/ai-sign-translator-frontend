@@ -1,0 +1,1153 @@
+/* ============================================
+   AI Sign Language Translator – Design System
+   ============================================ */
+
+:root {
+  --bg-main: #0F172A;
+  --bg-card: #1E293B;
+  --bg-elevated: #334155;
+  --primary: #2872A1;
+  --primary-light: #CBDDE9;
+  --primary-glow: rgba(40, 114, 161, 0.4);
+  --text-main: #F8FAFC;
+  --text-muted: #94A3B8;
+  --success: #22C55E;
+  --warning: #F59E0B;
+  --accent-cyan: #06B6D4;
+  --accent-cyan-glow: rgba(6, 182, 212, 0.35);
+  --accent-teal: #14B8A6;
+  --border: #334155;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
+  --transition: 0.25s ease;
+}
+
+[data-theme="light"] {
+  --bg-main: #F1F5F9;
+  --bg-card: #FFFFFF;
+  --bg-elevated: #E2E8F0;
+  --primary: #1E5A7A;
+  --primary-light: #0F172A;
+  --text-main: #0F172A;
+  --text-muted: #64748B;
+  --border: #CBD5E1;
+  --shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .landing-bg {
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(30, 90, 122, 0.12) 0%, transparent 50%),
+              radial-gradient(ellipse 60% 40% at 80% 80%, rgba(6, 182, 212, 0.1) 0%, transparent 45%),
+              linear-gradient(180deg, var(--bg-main) 0%, #e2e8f0 100%);
+}
+
+[data-theme="light"] .landing-feature {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: var(--border);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, sans-serif;
+  background: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.5;
+  min-height: 100vh;
+  transition: background var(--transition), color var(--transition);
+}
+
+/* ============================================
+   Landing Page
+   ============================================ */
+
+.landing {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.5rem;
+  overflow: hidden;
+}
+
+.landing-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, var(--primary-glow) 0%, transparent 50%),
+              radial-gradient(ellipse 60% 40% at 80% 80%, var(--accent-cyan-glow) 0%, transparent 45%),
+              linear-gradient(180deg, var(--bg-main) 0%, #0a0f1a 100%);
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.landing-content {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  width: 100%;
+  text-align: center;
+}
+
+.landing-header {
+  margin-bottom: 3rem;
+}
+
+.landing-logo {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--accent-cyan);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.landing-tagline {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+.landing-hero {
+  margin-bottom: 3rem;
+}
+
+.landing-title {
+  margin: 0 0 1rem;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, var(--text-main) 0%, var(--primary-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.landing-subtitle {
+  margin: 0 0 2rem;
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+.btn-landing {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent-cyan) 100%);
+  color: var(--text-main);
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 24px var(--primary-glow);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.btn-landing:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px var(--primary-glow);
+}
+
+.btn-lg {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+}
+
+.landing-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+  text-align: center;
+}
+
+.landing-feature {
+  background: rgba(30, 41, 59, 0.6);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.landing-feature:hover {
+  border-color: var(--primary);
+  box-shadow: 0 0 20px var(--primary-glow);
+}
+
+.landing-feature-icon {
+  display: block;
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.landing-feature h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.landing-feature p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.landing-cta {
+  margin-top: 1rem;
+}
+
+.landing-cta .btn {
+  text-decoration: none;
+}
+
+/* App section (translator) */
+.app-section {
+  position: relative;
+}
+
+.app-section .header {
+  position: sticky;
+  top: 0;
+}
+
+/* ============================================
+   Header
+   ============================================ */
+
+.header {
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+  padding: 1rem 1.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow);
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.site-title {
+  margin: 0;
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, var(--primary-light), var(--accent-cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.site-subtitle {
+  margin: 0.25rem 0 0;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.language-selector label {
+  margin-right: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.language-selector select {
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--bg-main);
+  color: var(--text-main);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.dark-mode-toggle {
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--bg-main);
+  color: var(--text-main);
+  cursor: pointer;
+  transition: box-shadow var(--transition), border-color var(--transition);
+}
+
+.dark-mode-toggle:hover {
+  border-color: var(--primary);
+  box-shadow: 0 0 12px var(--primary-glow);
+}
+
+.dark-mode-toggle .icon-moon { display: none; }
+[data-theme="light"] .dark-mode-toggle .icon-sun { display: none; }
+[data-theme="light"] .dark-mode-toggle .icon-moon { display: inline; }
+
+/* ============================================
+   Main layout
+   ============================================ */
+
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.section {
+  margin-bottom: 2.5rem;
+}
+
+.section-title {
+  margin: 0 0 0.75rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.section-desc {
+  margin: 0 0 1rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+/* ============================================
+   Buttons
+   ============================================ */
+
+.btn {
+  padding: 0.6rem 1rem;
+  border-radius: var(--radius-sm);
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow var(--transition), opacity var(--transition);
+}
+
+.btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: var(--primary-light);
+}
+
+.btn-primary:hover:not(:disabled) {
+  box-shadow: 0 0 16px var(--primary-glow);
+}
+
+.btn-secondary {
+  background: var(--bg-elevated);
+  color: var(--text-main);
+  border: 1px solid var(--border);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  border-color: var(--primary);
+  box-shadow: 0 0 12px var(--primary-glow);
+}
+
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ============================================
+   Camera & Translation
+   ============================================ */
+
+.camera-section .camera-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .camera-section .camera-wrapper {
+    grid-template-columns: 1fr;
+  }
+}
+
+.video-container {
+  position: relative;
+  aspect-ratio: 4/3;
+  max-height: 400px;
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+.video-container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--primary), var(--accent-cyan));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+#webcam,
+#landmarks-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#landmarks-canvas {
+  pointer-events: none;
+}
+
+/* Camera CTA overlay – shown when camera is off */
+.camera-cta-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  background: rgba(15, 23, 42, 0.85);
+  padding: 1.5rem;
+  z-index: 2;
+  transition: opacity var(--transition), visibility var(--transition);
+}
+
+.camera-cta-overlay.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.camera-cta-icon {
+  font-size: 3rem;
+  opacity: 0.9;
+}
+
+.camera-cta-text {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.camera-cta-hint {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  max-width: 260px;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.camera-cta-overlay .btn {
+  margin-top: 0.5rem;
+}
+
+.camera-status {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 0.5rem 1rem;
+  background: rgba(0, 0, 0, 0.7);
+  font-size: 0.875rem;
+  text-align: center;
+  color: var(--text-main);
+}
+
+.camera-status.detecting { color: var(--warning); }
+.camera-status.detected { color: var(--success); }
+
+.translation-panel {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+.translation-label {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.translation-display {
+  min-height: 120px;
+  padding: 1rem;
+  background: var(--bg-main);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  font-size: 1.25rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  color: var(--text-main);
+}
+
+.translation-display:empty::before {
+  content: 'Translated text will appear here…';
+  color: var(--text-muted);
+}
+
+.translation-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* ============================================
+   Conversation History
+   ============================================ */
+
+.history-actions {
+  margin-bottom: 0.75rem;
+}
+
+.history-panel {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.history-list {
+  max-height: 280px;
+  overflow-y: auto;
+  padding: 0.75rem;
+}
+
+.history-item {
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.5rem;
+  background: var(--bg-main);
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--primary);
+}
+
+.history-item:last-child {
+  margin-bottom: 0;
+}
+
+.history-item .history-text {
+  font-size: 1rem;
+  color: var(--text-main);
+}
+
+.history-item .history-time {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+/* ============================================
+   Sign Language Guide – separate card
+   ============================================ */
+
+.sign-guide-card-section .section-desc {
+  margin-bottom: 1rem;
+}
+
+.sign-guide-options {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding: 0.75rem 0;
+}
+
+.guide-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-main);
+  cursor: pointer;
+}
+
+.guide-option input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--primary);
+}
+
+.guide-option select {
+  padding: 0.35rem 0.5rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--bg-main);
+  color: var(--text-main);
+  font-size: 0.9rem;
+}
+
+.sign-cards-row.fixed-width .sign-card {
+  width: 52px;
+  min-width: 52px;
+}
+
+.sign-cards-row.fixed-width .sign-card.word {
+  width: 90px;
+  min-width: 90px;
+}
+
+.sign-guide-card-inner.font-size-80 .sign-guide-demo-label { font-size: 2rem; }
+.sign-guide-card-inner.font-size-90 .sign-guide-demo-label { font-size: 2.25rem; }
+.sign-guide-card-inner.font-size-100 .sign-guide-demo-label { font-size: 2.5rem; }
+.sign-guide-card-inner.font-size-110 .sign-guide-demo-label { font-size: 2.75rem; }
+.sign-guide-card-inner.font-size-120 .sign-guide-demo-label { font-size: 3rem; }
+
+.sign-guide-card-inner:not(.show-english) .sign-guide-demo-label {
+  display: none;
+}
+
+.sign-guide-card {
+  background: var(--bg-card);
+  border: 1px solid var(--primary);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 0 24px var(--primary-glow);
+  min-height: 280px;
+}
+
+.sign-guide-card-inner {
+  min-height: 220px;
+}
+
+.sign-guide-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 2rem 1rem;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.sign-guide-placeholder-icon {
+  font-size: 2.5rem;
+  opacity: 0.8;
+}
+
+.sign-guide-placeholder p {
+  margin: 0;
+  font-size: 0.95rem;
+  max-width: 360px;
+  line-height: 1.5;
+}
+
+.sign-guide-demo {
+  padding: 0.5rem 0;
+}
+
+.sign-guide-demo.hidden {
+  display: none !important;
+}
+
+.sign-guide-demo-label {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-align: center;
+  margin-bottom: 1rem;
+  line-height: 1;
+}
+
+.sign-guide-demo-viewer {
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-main);
+  border-radius: var(--radius-sm);
+  margin-bottom: 1rem;
+  border: 1px solid var(--border);
+  transition: opacity 0.15s ease;
+}
+
+.sign-guide-demo-viewer.sign-guide-fade-out {
+  opacity: 0;
+}
+
+.sign-guide-demo-viewer .sign-hand-demo {
+  width: 180px;
+  height: 240px;
+}
+
+.sign-guide-demo-viewer .sign-guide-photo {
+  max-width: 100%;
+  max-height: 280px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.sign-guide-demo-viewer .sign-guide-fallback {
+  margin: 0;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  background: var(--bg-main);
+  border-radius: var(--radius-sm);
+  border: 1px dashed var(--border);
+}
+
+.sign-guide-demo-desc {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  text-align: center;
+}
+
+.sign-guide-card-section .sign-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.sign-cards-group .sign-group-title {
+  margin: 0 0 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.sign-cards-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.sign-card {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-main);
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+
+.sign-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--primary);
+  box-shadow: 0 0 16px var(--primary-glow);
+}
+
+.sign-card.word {
+  width: auto;
+  min-width: 72px;
+  padding: 0 0.75rem;
+  font-size: 0.9rem;
+}
+
+/* ============================================
+   Modal (Sign Demo)
+   ============================================ */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition), visibility var(--transition);
+}
+
+.modal-overlay[aria-hidden="false"] {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  max-width: 480px;
+  width: 100%;
+  max-height: 90vh;
+  overflow: hidden;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
+  transform: scale(0.95);
+  transition: transform var(--transition);
+}
+
+.modal-overlay[aria-hidden="false"] .modal {
+  transform: scale(1);
+}
+
+/* Sign demo modal – page-like, larger */
+.modal-sign-demo {
+  max-width: 520px;
+  border: 1px solid var(--primary);
+  box-shadow: 0 0 40px var(--primary-glow), 0 24px 48px rgba(0, 0, 0, 0.4);
+}
+
+.modal-sign-demo .modal-header {
+  background: linear-gradient(135deg, rgba(40, 114, 161, 0.15) 0%, transparent 100%);
+}
+
+.modal-sign-demo .modal-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.modal-header h2,
+.modal-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.sign-demo-label {
+  display: block;
+  text-align: center;
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 1rem;
+  line-height: 1;
+}
+
+.modal-sign-demo .sign-demo-viewer {
+  min-height: 240px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  margin-bottom: 1.25rem;
+}
+
+.modal-sign-demo .sign-description {
+  font-size: 1rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  padding: 0.5rem 0;
+}
+
+.modal-close {
+  width: 36px;
+  height: 36px;
+  font-size: 1.5rem;
+  line-height: 1;
+  border-radius: var(--radius-sm);
+}
+
+.modal-body {
+  padding: 1.25rem;
+  overflow-y: auto;
+}
+
+.sign-demo-viewer {
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-main);
+  border-radius: var(--radius-sm);
+  margin-bottom: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.sign-description {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* 3D-style hand / arm demo */
+.sign-hand-demo {
+  width: 200px;
+  height: 260px;
+  position: relative;
+  perspective: 400px;
+}
+
+.sign-hand-demo .arm {
+  position: absolute;
+  left: 50%;
+  top: 20px;
+  width: 24px;
+  height: 80px;
+  background: linear-gradient(180deg, #c4a574 0%, #a08050 100%);
+  border-radius: 12px;
+  transform-origin: top center;
+  box-shadow: 2px 4px 8px rgba(0,0,0,0.3);
+  transform: translateX(-50%) rotateZ(0deg);
+  animation: arm-idle 2s ease-in-out infinite;
+}
+
+.sign-hand-demo .hand {
+  position: absolute;
+  left: 50%;
+  top: 90px;
+  width: 70px;
+  height: 50px;
+  margin-left: -35px;
+  background: linear-gradient(180deg, #e8c89a 0%, #c4a574 100%);
+  border-radius: 50% 50% 45% 45%;
+  transform-origin: center top;
+  box-shadow: 2px 4px 8px rgba(0,0,0,0.25);
+}
+
+.sign-hand-demo .finger {
+  position: absolute;
+  bottom: 0;
+  width: 10px;
+  height: 28px;
+  background: linear-gradient(180deg, #e8c89a 0%, #c4a574 100%);
+  border-radius: 5px;
+  transform-origin: bottom center;
+  box-shadow: 1px 2px 4px rgba(0,0,0,0.2);
+}
+
+.sign-hand-demo .finger.f1 { left: 8px;  animation: finger1 2s ease-in-out infinite; }
+.sign-hand-demo .finger.f2 { left: 22px; animation: finger2 2s ease-in-out infinite; }
+.sign-hand-demo .finger.f3 { left: 36px; animation: finger3 2s ease-in-out infinite; }
+.sign-hand-demo .finger.f4 { left: 50px; animation: finger4 2s ease-in-out infinite; }
+.sign-hand-demo .finger.f5 { left: 62px; width: 12px; animation: thumb 2s ease-in-out infinite; }
+
+/* Sign-specific overrides */
+/* Sign animations – modal and guide card */
+.sign-demo-viewer[data-sign="A"] .arm,
+.sign-guide-demo-viewer[data-sign="A"] .arm { animation: arm-a 2s ease-in-out infinite; }
+.sign-demo-viewer[data-sign="A"] .hand,
+.sign-guide-demo-viewer[data-sign="A"] .hand { animation: hand-a 2s ease-in-out infinite; }
+.sign-demo-viewer[data-sign="A"] .finger,
+.sign-guide-demo-viewer[data-sign="A"] .finger { animation: none; }
+
+.sign-demo-viewer[data-sign="B"] .arm,
+.sign-guide-demo-viewer[data-sign="B"] .arm { animation: arm-b 2s ease-in-out infinite; }
+.sign-demo-viewer[data-sign="B"] .finger.f1,
+.sign-guide-demo-viewer[data-sign="B"] .finger.f1 { animation: finger-b1 2s ease-in-out infinite; }
+.sign-demo-viewer[data-sign="B"] .finger.f2,
+.sign-demo-viewer[data-sign="B"] .finger.f3,
+.sign-demo-viewer[data-sign="B"] .finger.f4,
+.sign-guide-demo-viewer[data-sign="B"] .finger.f2,
+.sign-guide-demo-viewer[data-sign="B"] .finger.f3,
+.sign-guide-demo-viewer[data-sign="B"] .finger.f4 { animation: finger-straight 2s ease-in-out infinite; }
+
+.sign-demo-viewer[data-sign="hi"] .arm,
+.sign-demo-viewer[data-sign="hello"] .arm,
+.sign-guide-demo-viewer[data-sign="hi"] .arm { animation: arm-wave 2s ease-in-out infinite; }
+.sign-demo-viewer[data-sign="hi"] .hand,
+.sign-demo-viewer[data-sign="hello"] .hand,
+.sign-guide-demo-viewer[data-sign="hi"] .hand { animation: hand-wave 2s ease-in-out infinite; }
+
+.sign-demo-viewer[data-sign="yes"] .arm,
+.sign-guide-demo-viewer[data-sign="yes"] .arm { animation: arm-nod 2s ease-in-out infinite; }
+.sign-demo-viewer[data-sign="yes"] .hand,
+.sign-guide-demo-viewer[data-sign="yes"] .hand { animation: hand-nod 2s ease-in-out infinite; }
+
+.sign-demo-viewer[data-sign="no"] .arm,
+.sign-guide-demo-viewer[data-sign="no"] .arm { animation: arm-no 2s ease-in-out infinite; }
+.sign-demo-viewer[data-sign="no"] .finger.f1,
+.sign-demo-viewer[data-sign="no"] .finger.f2,
+.sign-guide-demo-viewer[data-sign="no"] .finger.f1,
+.sign-guide-demo-viewer[data-sign="no"] .finger.f2 { animation: finger-no 2s ease-in-out infinite; }
+
+.sign-demo-viewer[data-sign="thank-you"] .arm,
+.sign-guide-demo-viewer[data-sign="thank-you"] .arm { animation: arm-thanks 2s ease-in-out infinite; }
+.sign-demo-viewer[data-sign="thank-you"] .hand,
+.sign-guide-demo-viewer[data-sign="thank-you"] .hand { animation: hand-thanks 2s ease-in-out infinite; }
+
+.sign-demo-viewer[data-sign="bye"] .arm,
+.sign-guide-demo-viewer[data-sign="bye"] .arm { animation: arm-bye 2s ease-in-out infinite; }
+.sign-demo-viewer[data-sign="bye"] .hand,
+.sign-guide-demo-viewer[data-sign="bye"] .hand { animation: hand-bye 2s ease-in-out infinite; }
+
+@keyframes arm-idle {
+  0%, 100% { transform: translateX(-50%) rotateZ(-5deg); }
+  50% { transform: translateX(-50%) rotateZ(5deg); }
+}
+
+@keyframes arm-a {
+  0%, 100% { transform: translateX(-50%) rotateZ(-10deg); }
+  50% { transform: translateX(-50%) rotateZ(0deg); }
+}
+
+@keyframes hand-a {
+  0%, 100% { transform: rotateZ(-8deg); }
+  50% { transform: rotateZ(0deg); }
+}
+
+@keyframes arm-b {
+  0%, 100% { transform: translateX(-50%) rotateZ(0deg); }
+  50% { transform: translateX(-50%) rotateZ(5deg); }
+}
+
+@keyframes finger1 { 0%, 100% { transform: rotateZ(-60deg); } 50% { transform: rotateZ(-70deg); } }
+@keyframes finger2 { 0%, 100% { transform: rotateZ(-45deg); } 50% { transform: rotateZ(-55deg); } }
+@keyframes finger3 { 0%, 100% { transform: rotateZ(-30deg); } 50% { transform: rotateZ(-40deg); } }
+@keyframes finger4 { 0%, 100% { transform: rotateZ(-15deg); } 50% { transform: rotateZ(-25deg); } }
+@keyframes thumb { 0%, 100% { transform: rotateZ(45deg); } 50% { transform: rotateZ(55deg); } }
+
+@keyframes finger-b1 { 0%, 100% { transform: rotateZ(-90deg); } 50% { transform: rotateZ(-95deg); } }
+@keyframes finger-straight { 0%, 100% { transform: rotateZ(0deg); } 50% { transform: rotateZ(5deg); } }
+
+@keyframes arm-wave {
+  0%, 100% { transform: translateX(-50%) rotateZ(-15deg); }
+  50% { transform: translateX(-50%) rotateZ(25deg); }
+}
+
+@keyframes hand-wave {
+  0%, 100% { transform: rotateZ(-20deg); }
+  50% { transform: rotateZ(20deg); }
+}
+
+@keyframes arm-nod {
+  0%, 100% { transform: translateX(-50%) rotateZ(-5deg) rotateX(0deg); }
+  50% { transform: translateX(-50%) rotateZ(-5deg) rotateX(-15deg); }
+}
+
+@keyframes hand-nod {
+  0%, 100% { transform: rotateZ(0deg); }
+  50% { transform: rotateZ(5deg); }
+}
+
+@keyframes arm-no {
+  0%, 100% { transform: translateX(-50%) rotateZ(0deg); }
+  50% { transform: translateX(-50%) rotateZ(10deg); }
+}
+
+@keyframes finger-no {
+  0%, 100% { transform: rotateZ(0deg); }
+  50% { transform: rotateZ(15deg); }
+}
+
+@keyframes arm-thanks {
+  0%, 100% { transform: translateX(-50%) rotateZ(-8deg); }
+  50% { transform: translateX(-50%) rotateZ(8deg); }
+}
+
+@keyframes hand-thanks {
+  0%, 100% { transform: rotateZ(-10deg); }
+  50% { transform: rotateZ(10deg); }
+}
+
+@keyframes arm-bye {
+  0%, 100% { transform: translateX(-50%) rotateZ(-20deg); }
+  50% { transform: translateX(-50%) rotateZ(20deg); }
+}
+
+@keyframes hand-bye {
+  0%, 100% { transform: rotateZ(-15deg); }
+  50% { transform: rotateZ(15deg); }
+}
+
+/* ============================================
+   Control Panel
+   ============================================ */
+
+.control-panel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+.control-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-main);
+  cursor: pointer;
+}
+
+.control-toggle input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--primary);
+}
+
+/* ============================================
+   Accessibility & focus
+   ============================================ */
+
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
